@@ -1,0 +1,598 @@
+<title>ULI Interview Notes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap">
+
+<style>
+  /* ULI Interview Cheat Sheet — dark card grid, quick-scan layout */
+  :root {
+    --bg: #f5f5f4;
+    --surface: #ffffff;
+    --border: #e2e0dc;
+    --fg: #1a1a18;
+    --fg2: #5a5a56;
+    --accent: #2d6a4f;
+    --accent-light: #d8f3e8;
+    --pop: #e63946;
+    --pop-light: #fde8ea;
+    --yellow: #f4a261;
+    --yellow-light: #fef3e2;
+    --tag-bg: #2d6a4f;
+    --tag-fg: #ffffff;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111210;
+      --surface: #1c1e1b;
+      --border: #2e302d;
+      --fg: #e8e8e4;
+      --fg2: #9a9a94;
+      --accent: #52b788;
+      --accent-light: #1a3328;
+      --pop: #ff6b6b;
+      --pop-light: #2e1a1a;
+      --yellow: #f4a261;
+      --yellow-light: #2e2010;
+      --tag-bg: #52b788;
+      --tag-fg: #111210;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111210;
+    --surface: #1c1e1b;
+    --border: #2e302d;
+    --fg: #e8e8e4;
+    --fg2: #9a9a94;
+    --accent: #52b788;
+    --accent-light: #1a3328;
+    --pop: #ff6b6b;
+    --pop-light: #2e1a1a;
+    --yellow: #f4a261;
+    --yellow-light: #2e2010;
+    --tag-bg: #52b788;
+    --tag-fg: #111210;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    padding-block: 1rem;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    min-height: 100%;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .header-left h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .header-left p {
+    font-size: 0.75rem;
+    color: var(--fg2);
+    margin-top: 2px;
+  }
+
+  .theme-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--fg2);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .theme-btn:hover { background: var(--border); }
+
+  /* Tab nav */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .tab {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--fg2);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab:hover { border-color: var(--accent); color: var(--accent); }
+  .tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Section panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Q&A sub-panels */
+  .qa-panel { display: none; }
+  .qa-panel.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fg2);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Buzz word chips */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 0.4rem;
+  }
+  .chip {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: default;
+    transition: transform 0.15s, box-shadow 0.15s;
+    animation: popIn 0.3s ease both;
+  }
+  .chip:hover { transform: scale(1.08); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+  .chip.green  { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
+  .chip.red    { background: var(--pop-light);    color: var(--pop);    border: 1px solid var(--pop); }
+  .chip.yellow { background: var(--yellow-light); color: var(--yellow); border: 1px solid var(--yellow); }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Q&A cards */
+  .qa-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 0.65rem;
+    overflow: hidden;
+  }
+  .qa-q {
+    padding: 0.75rem 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--fg);
+    cursor: pointer;
+    display: block;
+    user-select: none;
+    line-height: 1.5;
+    position: relative;
+    padding-right: 2rem;
+  }
+  .qa-q .qa-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .qa-card.open .qa-q .qa-arrow { transform: translateY(-50%) rotate(90deg); }
+  .qa-q:hover { background: var(--accent-light); }
+  .qa-arrow { font-size: 0.65rem; color: var(--fg2); flex-shrink: 0; transition: transform 0.2s; }
+  .qa-label {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .qa-card.open .qa-arrow { transform: rotate(90deg); }
+  .qa-a {
+    display: none;
+    padding: 0 1rem 0.9rem;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--fg);
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+  .qa-card.open .qa-a { display: block; }
+
+  /* Intro script */
+  .script-box {
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--fg);
+    margin-bottom: 0.75rem;
+  }
+  .script-box strong {
+    font-family: 'Space Grotesk', sans-serif;
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  /* Alert tip */
+  .tip {
+    background: var(--pop-light);
+    border: 1.5px solid var(--pop);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    color: var(--fg);
+    margin-bottom: 0.65rem;
+    line-height: 1.5;
+  }
+  .tip b { color: var(--pop); font-family: 'Space Grotesk', sans-serif; }
+
+  /* Questions to ask */
+  .ask-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .ask-list li {
+    background: var(--yellow-light);
+    border: 1.5px solid var(--yellow);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    font-size: 0.82rem;
+    color: var(--fg);
+    line-height: 1.45;
+    counter-increment: asks;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .ask-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--yellow);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Salary */
+  .salary-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .salary-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .salary-sub { font-size: 0.75rem; color: var(--fg2); line-height: 1.4; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0.75rem 0;
+  }
+</style>
+
+<header>
+  <div class="header-left">
+    <h1>ULI — Junior Sys Admin</h1>
+    <p>Nicole McCauley · HR Screen · Zoom</p>
+  </div>
+  <button class="theme-btn" onclick="toggleTheme()">🌙 Theme</button>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('intro')">👋 Intro</button>
+  <button class="tab" onclick="showTab('qa')">💬 Q&amp;A</button>
+  <button class="tab" onclick="showTab('ask')">❓ Ask Her</button>
+  <button class="tab" onclick="showTab('salary')">💰 Salary</button>
+</div>
+
+<!-- INTRO -->
+<div class="panel active" id="intro">
+  <div class="script-box">
+    <strong>Tell me about yourself — say this naturally (~60 sec)</strong>
+    <ul style="padding-left:1.1rem; margin:0; display:flex; flex-direction:column; gap:0.5rem;">
+      <li>Right now I'm a <b class="qa-label">Data Center Operations Technician</b> at <b class="qa-label">AWS</b> in Sterling
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>On the ground when something breaks — servers, networking, <b class="qa-label">Cisco switches</b>, keeping everything documented</li></ul>
+      </li>
+      <li>Before that — IT intern at <b class="qa-label">Creative Associates</b> (Chevy Chase, MD)
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>That's where I built my sysadmin foundation</li><li><b class="qa-label">Active Directory</b>, <b class="qa-label">Entra ID</b>, <b class="qa-label">M365</b>, <b class="qa-label">Intune</b>, setting up new hires, running IT orientation — 300+ users across 20 countries</li></ul>
+      </li>
+      <li>Also did an IT internship at <b class="qa-label">HSEMA</b> (DC Homeland Security)
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Tier 1/2 support, AD group memberships, SOPs, network device audit</li></ul>
+      </li>
+      <li>Have <b class="qa-label">Security+</b> and <b class="qa-label">ITIL 4</b>
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Working toward <b class="qa-label">CCNA</b> and <b class="qa-label">MS-102</b> right now</li></ul>
+      </li>
+      <li>Goal is to keep growing in tech
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Moving from data center ops + internships into a real sysadmin role with ownership</li><li>This feels like the natural next step</li></ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="script-box">
+    <strong>Why ULI?</strong>
+    <ul style="padding-left:1.1rem; margin:0; display:flex; flex-direction:column; gap:0.5rem;">
+      <li>I'm at a point in my career where I want to move into a real <b class="qa-label">sysadmin role</b>
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>I've had the hands-on experience — data center, internships — now I want actual <b class="qa-label">ownership</b></li></ul>
+      </li>
+      <li>This role is exactly what I'm looking for
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li><b class="qa-label">Active Directory</b>, <b class="qa-label">M365</b>, <b class="qa-label">Intune</b>, endpoint management — that's the work I want to be doing full-time</li><li>Not just helping with tickets — actually managing the environment</li></ul>
+      </li>
+      <li>Also it's a smaller IT team
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>I like that — means I'll get to work on a little bit of everything</li><li>I learn way more that way than just doing the same thing every day</li><li>My first IT internship at <b class="qa-label">Creative Associates</b> was similar — small team, you just figure things out and handle whatever comes in</li></ul>
+      </li>
+      <li>And I want to build on what I already have
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>I'm finishing my <b class="qa-label">CCNA</b> and working toward <b class="qa-label">MS-102</b></li><li>I'd rather figure it out on the job than just grind through practice labs</li></ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)" style="margin-bottom:0.75rem;">
+    <div class="qa-q">📚 What do you know about ULI? <span class="qa-arrow">›</span></div>
+    <div class="qa-a">
+      <ul style="padding-left:1.1rem; margin:0; display:flex; flex-direction:column; gap:0.5rem;">
+        <li>It's a <b class="qa-label">nonprofit research and education organization</b> focused on real estate and land use
+          <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Been around since 1936 — one of the oldest in the space</li><li>About <b class="qa-label">45,000 members</b> worldwide — developers, planners, architects, policymakers</li></ul>
+        </li>
+        <li>They put out a lot of <b class="qa-label">research and reports</b>
+          <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Affordable housing, urban development, infrastructure, sustainability</li><li>Their <b class="qa-label">Emerging Trends in Real Estate</b> report is pretty well known in the industry</li></ul>
+        </li>
+        <li>They have a <b class="qa-label">Washington DC district council</b> which is one of their bigger ones
+          <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Makes sense given how much real estate and policy work happens here</li></ul>
+        </li>
+        <li>From what I saw the HQ is here in DC
+          <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Hybrid role, small IT team — which is exactly what I was looking for</li></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip">
+    <b>💡 Vibe they want:</b> Calm, friendly, service-first. The JD says twice — people who "stay calm when a colleague is frustrated." Let that come through naturally.
+  </div>
+</div>
+
+<!-- Q&A -->
+<div class="panel" id="qa">
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Walk me through your <span class="qa-label">sysadmin experience</span>." <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Best example → <b class="qa-label">Creative Associates</b></li>
+      <li>Supported 300+ users across 20 countries → <b class="qa-label">AD, Entra ID, M365, Intune</b></li>
+      <li>Accounts, imaging, new hire orientation, Windows + Mac</li>
+      <li>Also did sysadmin work at <b class="qa-label">HSEMA</b> → Tier 1/2 support, AD, SOPs, network audit</li>
+      <li>Wrote SOPs → team kept using them after I left
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"<span class="qa-label">Windows and Mac</span> experience?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li><b class="qa-label">Creative Associates</b> → both Windows + Mac, 300+ users, 20 countries</li>
+      <li><b class="qa-label">HSEMA</b> → mostly Windows</li>
+      <li>Comfortable with both</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"<span class="qa-label">ServiceNow</span> experience?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>AWS uses internal ticketing inside Amazon's ecosystem → same workflow</li>
+      <li>Queue management, SLAs, step-by-step documentation</li>
+      <li>Writing KB articles for recurring issues</li>
+      <li>Would pick up ServiceNow fast → same concept</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Are you okay being the <span class="qa-label">face of IT</span> / dealing with <span class="qa-label">frustrated people</span>?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Favorite part honestly</li>
+      <li>HSEMA → staff came to me directly</li>
+      <li>Creative Associates → non-technical people across 20 countries</li>
+      <li>Don't get rattled → just focus on fixing the problem</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Tell me about the <span class="qa-label">Python/Excel tool</span> you built." <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>AWS internship → pulled operational data from multiple sites</li>
+      <li>Formatted into clean status reports → cut manual work</li>
+      <li>Python for data pulling, Excel for the output</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"What's the <span class="qa-label">MS-102</span> cert?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Microsoft 365 Administrator cert</li>
+      <li>Currently studying for it</li>
+      <li>Covers M365, Entra ID, Intune → exactly what this role needs</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Tell me about a time you dealt with a <span class="qa-label">frustrated user</span>." <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Creative Associates — director couldn't access a shared drive right before a deadline
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Visibly stressed, needed it fixed immediately</li></ul>
+      </li>
+      <li>Stayed calm → didn't match their energy
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>"I'm on it right now, give me two minutes"</li></ul>
+      </li>
+      <li>Permissions issue in AD → fixed on the spot</li>
+      <li>They thanked me → that's the kind of interaction I actually enjoy</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Tell me about a time you had to <span class="qa-label">figure something out on your own</span>." <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>HSEMA — same VPN issue kept coming up from different people
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>No existing SOP → nobody had documented a fix</li></ul>
+      </li>
+      <li>Traced it to a Group Policy conflict after a Windows update</li>
+      <li>Fixed it at the root → wrote a step-by-step SOP
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Team kept using it after I left</li></ul>
+      </li>
+      <li>I don't just close tickets → I try to prevent the next one</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Tell me about a time you had to <span class="qa-label">juggle multiple issues</span> at once." <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>HSEMA — multiple open tickets at the same time
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>New hire onboarding, email access issue, laptop not imaging</li></ul>
+      </li>
+      <li>Triaged by impact → new hire first, they couldn't start without access</li>
+      <li>Kept others updated → "I see your ticket, I'll be with you in X minutes"</li>
+      <li>Closed all three same day → nobody left in the dark</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"Tell me about a time you went <span class="qa-label">above and beyond</span>." <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>HSEMA — ran IT orientation for every new hire
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Not just "here's your laptop" → walked them through everything they'd actually need</li></ul>
+      </li>
+      <li>VPN, shared drives, email, MFA, who to call when something breaks</li>
+      <li>People came back to me specifically because they knew I'd actually help
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>That trust is something I try to build in every role</li></ul>
+      </li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"What's the <span class="qa-label">Tandym Group</span> line on your resume?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Placed through a staffing agency</li>
+      <li>Working directly on AWS's data center team the whole time → same team, same environment</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"<span class="qa-label">4 days a week</span> in the DC office okay?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Totally fine → based in NoVA</li>
+      <li>Actually prefer on-site → easier to help people when you're in the room</li>
+    </ul></div>
+  </div>
+
+</div>
+
+<!-- ASK HER -->
+<div class="panel" id="ask">
+  <div class="card">
+    <div class="card-title">Questions to ask Nicole</div>
+  </div>
+  <ul class="ask-list">
+    <li><span class="ask-num">1</span>"Is this a new position or did someone leave? I want to understand what the team needs right now."</li>
+    <li><span class="ask-num">2</span>"How big is the IT team and how is the work split day to day?"</li>
+    <li><span class="ask-num">3</span>"What does the salary range look like for this role? The posting showed $55k–$66k — is there flexibility based on experience?"</li>
+    <li><span class="ask-num">4</span>"What would success look like in the first 90 days?"</li>
+    <li><span class="ask-num">5</span>"Is the Windows/Mac split still shifting or has it stabilized around 50/50?"</li>
+    <li><span class="ask-num">6</span>"What are the next steps after this call?"</li>
+  </ul>
+</div>
+
+<!-- SALARY -->
+<div class="panel" id="salary">
+  <div class="salary-box">
+    <div>
+      <div class="salary-num">$62–66k</div>
+      <div class="salary-sub">Your target ask</div>
+    </div>
+    <div class="salary-sub">
+      ULI range: $55,781 – $66,625<br>
+      Be flexible: <em>"open depending on the full package"</em>
+    </div>
+  </div>
+  <hr class="divider">
+  <div class="script-box">
+    <strong>Say this if she asks</strong>
+    "I'm thinking somewhere around $62–66k, but I'm open depending on the full package."
+  </div>
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tabs > .tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function showQATab(id, btn) {
+    document.querySelectorAll('.qa-panel').forEach(p => p.classList.remove('active'));
+    btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleQA(card) {
+    card.classList.toggle('open');
+  }
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    const cur = root.getAttribute('data-theme');
+    if (cur === 'dark') root.setAttribute('data-theme', 'light');
+    else root.setAttribute('data-theme', 'dark');
+  }
+
+  // stagger chip animations
+  document.querySelectorAll('.chip').forEach((chip, i) => {
+    chip.style.animationDelay = (i * 40) + 'ms';
+  });
+</script>
