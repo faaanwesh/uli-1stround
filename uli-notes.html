@@ -460,11 +460,35 @@
   </div>
 
   <div class="qa-card" onclick="toggleQA(this)">
-    <div class="qa-q">"Tell me about the <span class="qa-label">Python/Excel tool</span> you built." <span class="qa-arrow">▶</span></div>
+    <div class="qa-q">"Tell me about the <span class="qa-label">Excel/VBA tool</span> you built." <span class="qa-arrow">▶</span></div>
     <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
-      <li>AWS internship → pulled operational data from multiple sites</li>
-      <li>Formatted into clean status reports → cut manual work</li>
-      <li>Python for data pulling, Excel for the output</li>
+      <li>Built during my <b class="qa-label">AWS internship</b> in Santa Clara — access control tool for construction sites</li>
+      <li>Before this, it was all paper-based — manual sign-in sheets at the gate
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Slow, easy to fake, hard to manage</li></ul>
+      </li>
+      <li>Built it in <b class="qa-label">Excel with VBA macros</b>
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Managers input authorized contractors/employees — name, photo, info</li><li>Tool generates a <b class="qa-label">QR code</b> assigned to that person, handed to them</li></ul>
+      </li>
+      <li>When they show up at the site — guard scans the QR code
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li><b class="qa-label">Name and photo pop up</b> on the guard's screen instantly</li><li>Verify on the spot — no paper, no guessing</li></ul>
+      </li>
+      <li>Replaced the whole manual process → faster, more secure, easier to manage</li>
+    </ul></div>
+  </div>
+
+  <div class="qa-card" onclick="toggleQA(this)">
+    <div class="qa-q">"<span class="qa-label">Entra ID / Azure AD</span> and <span class="qa-label">Intune / MDM</span> experience?" <span class="qa-arrow">▶</span></div>
+    <div class="qa-a"><ul style="padding-left:1.1rem;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+      <li>Main experience was at <b class="qa-label">Creative Associates</b> — fully cloud-managed environment
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>300+ users across 20+ countries</li></ul>
+      </li>
+      <li><b class="qa-label">Entra ID</b> — handled all onboarding and offboarding
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>New hire → create account, assign M365 licenses, set group memberships</li><li>Offboarding → disable account, revoke access, remove from groups</li><li>Did this regularly as people joined and left across different countries</li></ul>
+      </li>
+      <li><b class="qa-label">Intune</b> — used for mobile device management
+        <ul style="margin-top:0.3rem;padding-left:1rem;display:flex;flex-direction:column;gap:0.3rem;"><li>Enrolling devices, pushing policies, keeping endpoints compliant</li><li>Windows, some Mac and mobile</li></ul>
+      </li>
+      <li>Also used for imaging and deploying laptops — Autopilot so devices were ready out of the box</li>
     </ul></div>
   </div>
 
